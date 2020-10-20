@@ -79,6 +79,9 @@ class KategoriController extends Controller
     public function edit($id)
     {
         //
+        $pagename = 'Edit Kategori';
+        $data = kategori::find($id);
+        return view('admin.kategori.edit', compact('data','pagename'));
     }
 
     /**
@@ -91,6 +94,21 @@ class KategoriController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'txt_namakategori'=> 'required',
+            'txt_ketkategori'=> 'required',
+            'radio_status'=> 'required',
+        ]);
+
+        $tugas = kategori::find($id);
+
+        $tugas->nama_kategori = $request->get('txt_namakategori');
+        $tugas->keterangan_kategori = $request->get('txt_ketkategori');
+        $tugas->status_kategori= $request->get('radio_status');
+    
+
+         $tugas->save();
+        return redirect('admin/kategori')->with('sukses','Tugas Berhasil Dirubah');
     }
 
     /**
@@ -102,5 +120,8 @@ class KategoriController extends Controller
     public function destroy($id)
     {
         //
+        $tugas=kategori::find($id);
+        $tugas->delete();
+        return redirect('admin/kategori')->with('sukses','Kategori Berhasil Dihapus');
     }
 }
