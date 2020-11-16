@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
+
 {
     //
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $validateData = $request->validate([
             'name' => 'required|max:25',
             'email' => 'email | required | unique:users',
@@ -19,15 +21,16 @@ class AuthController extends Controller
         $user = new User([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bycript($request->password),
+            'password' => bcrypt($request->password),
         ]);
 
-        $user->save;
+        $user->save();
 
         return response()->json($user, 201);
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $validateData = $request->validate([
             'email' => 'email | required | unique:users',
             'password' => 'required | confirmed',
