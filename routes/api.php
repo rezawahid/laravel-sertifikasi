@@ -18,6 +18,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-route::post('register', 'Api\Auth\AuthController@register');
-route::post('login', 'Api\Auth\AuthController@login');
+Route::post('register', 'Api\Auth\AuthController@register');
+Route::post('login', 'Api\Auth\AuthController@login');
 
+Route::group(['prefix'=>'tugas'],function(){
+    Route::group(['middleware' => 'auth:api'], function(){
+        Route::post('tambah','API\Tugas\TugasController@store');
+        Route::post('update','API\Tugas\TugasController@update');
+        Route::get('read','API\Tugas\TugasController@getAll');
+        Route::post('delete ','API\Tugas\TugasController@destroy');
+    });
+});
