@@ -41,11 +41,11 @@
         <div class="content mt-3">
             <div class="animated fadeIn">
                 <div class="row">
+                
 
                     <div class="col-md-12">
                         <div class="card">
-
-                        @if(session()->get('sukses'))
+                            @if(session()->get('sukses'))
                             <div class="alert alert-success">
                                 {{session()->get('sukses')}}
                             </div>
@@ -54,43 +54,33 @@
 
                             <div class="card-header">
                                 <strong class="card-title">{{$pagename}}</strong>
-                                <a href="{{route('tugas.create')}}" class="btn btn-primary pull-right">Tambah</a>
+                                <a href="{{route('penumpang.create')}}" class="btn btn-primary pull-right">Tambah</a>
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                     <thead>
-                                        <tr>                                           
+                                        <tr>
                                             <th>Nomor</th>
+                                            <th>Nik</th>
                                             <th>Nama</th>
-                                            <th>Kategori</th>
-                                            <th>Keterangan</th>
-                                            <th>Status</th>
+                                            <th>Alamat</th>
                                             <th>Edit</th>
                                             <th>Hapus</th>
-
-
-
                                         </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($data as $i=>$row)
                                         <tr>
                                             <td>{{++$i}}</td>
-                                            <td>{{$row->nama_tugas}}</td>
-                                            <td>{{$row->id_kategori}}</td>
-                                            <td>{{$row->ket_tugas}}</td>                                       
-                                            <td>{{$row->status_tugas}}</td>     
-                                            <td><a href="{{route('tugas.edit',$row->id)}}" class="btn btn-primary">Edit</a></td>
-                                            <td>
-                                                <form action="{{route('tugas.destroy',$row->id)}}" method='post'>
+                                            <td>{{$row->nik_penumpang}}</td>
+                                            <td>{{$row->nama_penumpang}}</td>
+                                            <td>{{$row->alamat_penumpang}}</td>
+                                            <td><a href="{{route('penumpang.edit',$row->id)}}" class="btn btn-primary btn-sm">Edit</a></td>
+                                            <td><form action="{{route('penumpang.destroy',$row->id)}}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger" type="submit">Hapus</button>
-                                                </form>                             
-                                            </td>     
-
-                                                                            
-
+                                            </form></td>
                                         </tr>
                                     @endforeach
                                     </tbody>
