@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\API\Tugas;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Task;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TugasController extends Controller
 {
     public function getAll()
     {
-        $data = Task::orderBy('id','desc')
+        $data = DB::table('tasks')
+                ->orderBy('id', 'desc')
                 ->get();
+
         return response()->json($data, 200);
     }
 
